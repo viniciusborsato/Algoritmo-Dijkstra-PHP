@@ -1,6 +1,5 @@
 <?php
-function dijkstra($grafico, $inicio, $final)
-{
+function dijkstra($grafico, $inicio, $final) {
   $distancias = [];
   $visitado = [];
 
@@ -15,8 +14,7 @@ function dijkstra($grafico, $inicio, $final)
     $minDist = INF;
     $minVert = null;
     
-    foreach ($distancias as $vertice => $distancia)
-    {
+    foreach ($distancias as $vertice => $distancia) {
       if ($visitado[$vertice] == false && $distancia < $minDist) {
         $minDist = $distancia;
         $minVert = $vertice;
@@ -29,6 +27,7 @@ function dijkstra($grafico, $inicio, $final)
     
     foreach ($grafico[$minVert] as $vizinho => $distancia) {
       $alt = $distancias[$minVert] + $distancia;
+      
       if ($alt < $distancias[$vizinho]) {
         $distancias[$vizinho] = $alt;
       }
@@ -36,16 +35,20 @@ function dijkstra($grafico, $inicio, $final)
     
     $visitado[$minVert] = true;
   }
+  
   return $distancias[$final];
 }
 
-$grafico = ['A' => ['B' => 3, 'C' => 4], 'B' => ['C' => 1, 'D' => 5], 'C' => ['D' => 2], 'D' => []];
+$grafico = [
+  'A' => ['B' => 3, 'C' => 4],
+  'B' => ['C' => 1, 'D' => 5],
+  'C' => ['D' => 2],
+  'D' => []
+];
 
 $inicio = 'A';
-
 $fim = 'D';
-
 $distancia = dijkstra($grafico, $inicio, $fim);
 
-  echo 'A distância mínima de "' . $inicio . '" até "' . $fim . '" é: ' . $distancia;
+echo 'A distância mínima de "' . $inicio . '" até "' . $fim . '" é: ' . $distancia;
 ?>
